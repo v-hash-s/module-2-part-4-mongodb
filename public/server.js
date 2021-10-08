@@ -1,16 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
+var im = require('imagemagick');
+// console.log(path.resolve(__dirname, '../static/photos/christian-holzinger-3iEgF99LESk-unsplash.jpg'))
+im.identify(path.resolve(__dirname, '../static/photos/christian-holzinger-3iEgF99LESk-unsplash.jpg'), function (err, features) {
+    if (err)
+        throw err;
+    console.log(features);
+});
 var express = require("express");
 var app = express();
 var mongoose = require("mongoose");
-var model_1 = require("./database/models/model");
 var formidableMiddleware = require("express-formidable");
-var path = require("path");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var logger_1 = require("./logger");
-console.log(model_1.p);
+var ImageSchema_1 = require("./database/models/ImageSchema");
 // connect to db
 var dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
@@ -43,6 +49,14 @@ var uploadRouter_1 = require("./routes/uploadRouter");
 // const loginRouter = require('./loginRouter.js')
 // const galleryRouter = require('./galleryRouter.js')
 // const uploadRouter = require('./uploadRouter.js')
+app.get('/images', function (req, res) {
+    var img = new ImageSchema_1.default({
+        path: 'img2 path',
+        metadata: { text: 'Come metadata' }
+    });
+    img.save()
+        .then(function (result) { return res.send(result); });
+});
 app.use('/', loginRouter_1.default);
 app.use('/gallery', galleryRouter_1.default);
 app.use('/upload', uploadRouter_1.default);

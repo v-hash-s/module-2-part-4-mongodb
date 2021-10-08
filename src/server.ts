@@ -1,3 +1,10 @@
+import * as path from 'path'
+const im = require('imagemagick');
+// console.log(path.resolve(__dirname, '../static/photos/christian-holzinger-3iEgF99LESk-unsplash.jpg'))
+im.identify(path.resolve(__dirname, '../static/photos/christian-holzinger-3iEgF99LESk-unsplash.jpg'), function(err: any, features: any){
+  if (err) throw err;
+  console.log(features);
+})
 
 import * as express from 'express'
 const app = express()
@@ -6,7 +13,6 @@ const mongoose = require("mongoose");
 
 import { Request, Response } from "express"
 import * as formidableMiddleware from 'express-formidable'
-import * as path from 'path'
 import * as fs from 'fs'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
@@ -14,6 +20,7 @@ import * as cookieParser from 'cookie-parser'
 
 import logger from "./logger"
 
+import ImageModel from './database/models/ImageSchema'
 
 // connect to db
 const dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority'
@@ -58,6 +65,16 @@ import uploadRouter from './routes/uploadRouter'
 // const loginRouter = require('./loginRouter.js')
 // const galleryRouter = require('./galleryRouter.js')
 // const uploadRouter = require('./uploadRouter.js')
+app.get('/images', (req: Request, res: Response) => {
+  const img = new ImageModel({
+    path: 'img2 path',
+    metadata: {text: 'Come metadata'}
+  })
+
+  img.save()
+    .then((result: any) => res.send(result))
+})
+
 
 app.use('/', loginRouter)
 app.use('/gallery', galleryRouter)
