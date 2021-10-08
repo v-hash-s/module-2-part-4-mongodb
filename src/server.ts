@@ -4,7 +4,6 @@ const app = express()
 
 const mongoose = require("mongoose");
 
-
 import { Request, Response } from "express"
 import * as formidableMiddleware from 'express-formidable'
 import * as path from 'path'
@@ -14,7 +13,6 @@ import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 
 import logger from "./logger"
-
 
 
 // connect to db

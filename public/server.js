@@ -3,12 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var app = express();
 var mongoose = require("mongoose");
+var model_1 = require("./database/models/model");
 var formidableMiddleware = require("express-formidable");
 var path = require("path");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var logger_1 = require("./logger");
+console.log(model_1.p);
 // connect to db
 var dbURI = 'mongodb+srv://admin:admin1234@mongodbgallery.cby3v.mongodb.net/mongodbgallery?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
